@@ -1,4 +1,8 @@
 {%- style -%}
+  .utility-bar{
+    display: flex;
+    align-items: center;
+  }
     .announcement-bar-slider-custom {
       width: 100%;
       overflow: hidden;
@@ -115,20 +119,14 @@
     </div>
     {% if section.settings.show_arrows %}
       <button class="slider-prev" aria-label="Anterior" style="color: {{ section.settings.text_color }}">
-        {% case section.settings.arrow_icon %}
-          {% when 'icon-arrow' %}
+       
             {% render 'icon-arrow' %}
-          {% when 'icon-caret' %}
-            {% render 'icon-caret' %}
-        {% endcase %}
+          
       </button>
       <button class="slider-next" aria-label="Siguiente" style="color: {{ section.settings.text_color }}">
-        {% case section.settings.arrow_icon %}
-          {% when 'icon-arrow' %}
+       
             {% render 'icon-arrow' %}
-          {% when 'icon-caret' %}
-            {% render 'icon-caret' %}
-        {% endcase %}
+         
       </button>
     {% endif %}
 
@@ -236,17 +234,7 @@
   "label": "Mostrar flechas de navegación",
   "default": false
 },
-{
-  "type": "select",
-  "id": "arrow_icon",
-  "label": "Icono de flechas",
-  "options": [
 
-    { "value": "icon-arrow", "label": "Flecha clásica" },
-    { "value": "icon-caret", "label": "Caret" }
-  ],
-  "default": "icon-arrow"
-},
 
 
     {
@@ -310,14 +298,28 @@
     }
   ],
   "presets": [
-    {
-      "name": "t:sections.announcement-bar.presets.name",
-      "blocks": [
-        {
-          "type": "announcement"
+  {
+    "name": "t:sections.announcement-bar.presets.name",
+    "blocks": [
+      {
+        "type": "announcement",
+        "settings": {
+          "text": "Bienvenido a nuestra tienda",
+          "button_text": "Explorar",
+          
         }
-      ]
-    }
-  ]
+      },
+      {
+        "type": "announcement",
+        "settings": {
+          "text": "Envío gratis en pedidos mayores a $999",
+          "button_text": "Ver detalles",
+          
+        }
+      }
+    ]
+  }
+]
+
 }
 {% endschema %}
