@@ -1,28 +1,43 @@
-🧩 Custom Shopify Section - Anuncios con Estilo Personalizable
-Esta sección personalizada para Shopify permite mostrar hasta tres bloques de anuncio en un diseño de tipo slider o grilla. Cada bloque puede ser totalmente personalizado desde el editor de temas de Shopify, incluyendo:
+# Shopify Announcement Bar Slider - 100% Personalizado
 
-✅ Título del anuncio
+Este repositorio contiene el código completo para implementar una **barra de anuncios deslizante (announcement bar)** en Shopify de forma **nativa**, sin necesidad de aplicaciones externas.
 
-🖼 Imagen destacada
+### 🧰 ¿Qué incluye?
 
-📄 Texto descriptivo
+- Slider automático para múltiples mensajes
+- Botones editables por bloque (texto, color, enlace, etc.)
+- Flechas de navegación (activables desde el editor)
+- Altura, tamaño de fuente, color de fondo y más ajustables desde el editor de secciones
+- Código optimizado con Liquid, CSS y JavaScript
 
-🎯 Texto del botón
+### 💡 ¿Para qué sirve?
 
-🎨 Color de fondo del botón
+Ideal para mostrar:
+- Promociones
+- Envíos gratis
+- Ofertas limitadas
+- Mensajes destacados
+- Llamadas a la acción
 
-🎨 Color del texto del botón
+### 🎥 Video tutorial
 
-Además, puedes habilitar flechas de navegación para recorrer los anuncios y elegir un icono específico para dichas flechas, todo desde la configuración visual del editor.
+Puedes ver cómo funciona y cómo instalarlo en este video:
+👉 https://youtu.be/ZY1NnIh8YkU
 
-🛠 Características técnicas
-Construida con Liquid y compatible con el Theme Editor de Shopify.
+---
 
-Responsive y adaptable a múltiples tamaños de pantalla.
+### 🚀 Cómo instalar
 
-Sin dependencias externas.
+1. Copia el código de la sección `.liquid` en tu theme (carpeta `sections`)
+2. Personaliza desde el editor de Shopify (Online Store > Customize)
+3. ¡Listo!
 
-Estilos personalizados directamente desde las configuraciones del bloque.
+---
 
-⚠️ Nota importante
-Para evitar que Shopify use valores por defecto al duplicar bloques, la sección no genera automáticamente bloques adicionales si hay menos de tres. Se recomienda agregar manualmente los bloques desde el editor para tener control total sobre el contenido.
+### 📩 ¿Dudas o sugerencias?
+
+Si tienes ideas para mejorar la sección o quieres integrarla con algo más avanzado, abre un issue o contáctame por YouTube.
+
+---
+
+💻 Hecho con 💚 para la comunidad de Shopify.
