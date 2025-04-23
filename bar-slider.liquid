@@ -1,0 +1,323 @@
+{%- style -%}
+    .announcement-bar-slider-custom {
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+    }
+    .announcement-bar__announcement {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+
+    .slider-custom {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+      will-change: transform;
+      width: 100%;
+    }
+
+    .slider__slide {
+      flex: 0 0 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+
+    .slider-prev,
+  .slider-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 10;
+  }
+
+  .slider-prev {
+    left: 10px;
+  }
+
+  .slider-next {
+    right: 10px;
+  }
+
+
+  .slider-prev svg {
+  transform: rotate(180deg);
+}
+
+{%- endstyle -%}
+
+<div
+  class="utility-bar"
+  style="background-color: {{ section.settings.background_color }}; height: {{ section.settings.height }};"
+>
+  {{ block.shopify_attributes }}
+
+  <div class="announcement-bar-slider-custom slider-buttons">
+    <div class="slider-custom">
+      {% for block in section.blocks %}
+        <div class="slideshow__slide slider__slide grid__item grid--1-col announcement-block">
+          {% if block.settings.text != blank %}
+            <div class="announcement-bar__announcement">
+              <p
+                class="announcement-bar__message h5"
+                style="font-size: {{ section.settings.font_size }}; font-weight: 100; color: {{ section.settings.text_color }};"
+              >
+                <span style="font-size: {{ section.settings.font_size }}; font-weight: 100; color: {{ section.settings.text_color }};">
+                  {{ block.settings.text | escape }}
+                </span>
+              </p>
+              {% if block.settings.button_text != blank and block.settings.link != blank %}
+                <form action="{{ block.settings.link }}" method="get" style="margin: 0;">
+                  <button type="submit" class="btn" style="border:none; cursor:ponter; padding:10px; border-radius: {{ section.settings.border_radius }}; font-size: {{ block.settings.button_font_size }}; background: {{ block.settings.button_background_color }}; color:{{ block.settings.button_text_color }}">
+                    {{ block.settings.button_text }}
+                  </button>
+                </form>
+              {% endif %}
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+      
+      
+          {% for block in section.blocks %}
+            <div class="slideshow__slide slider__slide grid__item grid--1-col announcement-block">
+              {% if block.settings.text != blank %}
+                <div class="announcement-bar__announcement">
+                  <p
+                    class="announcement-bar__message h5"
+                    style="font-size: {{ section.settings.font_size }}; font-weight: 100; color: {{ section.settings.text_color }};"
+                  >
+                    <span style="font-size: {{ section.settings.font_size }}; font-weight: 100; color: {{ section.settings.text_color }};">
+                      {{ block.settings.text | escape }}
+                    </span>
+                  </p>
+                  {% if block.settings.button_text != blank and block.settings.link != blank %}
+                    <form action="{{ block.settings.link }}" method="get" style="margin: 0;">
+                      <button
+                        type="submit"
+                        class="btn"
+                        style="border:none; padding:10px; cursor:ponter; border-radius: {{ section.settings.border_radius }}; font-size: {{ block.settings.button_font_size }}; background: {{ block.settings.button_background_color }}; color:{{ block.settings.button_text_color }}"
+                      >
+                        {{ block.settings.button_text }}
+                      </button>
+                    </form>
+                  {% endif %}
+                </div>
+              {% endif %}
+            </div>
+          {% endfor %}
+       
+    </div>
+    {% if section.settings.show_arrows %}
+      <button class="slider-prev" aria-label="Anterior" style="color: {{ section.settings.text_color }}">
+        {% case section.settings.arrow_icon %}
+          {% when 'icon-arrow' %}
+            {% render 'icon-arrow' %}
+          {% when 'icon-caret' %}
+            {% render 'icon-caret' %}
+        {% endcase %}
+      </button>
+      <button class="slider-next" aria-label="Siguiente" style="color: {{ section.settings.text_color }}">
+        {% case section.settings.arrow_icon %}
+          {% when 'icon-arrow' %}
+            {% render 'icon-arrow' %}
+          {% when 'icon-caret' %}
+            {% render 'icon-caret' %}
+        {% endcase %}
+      </button>
+    {% endif %}
+
+    <script>
+  document.addEventListener('DOMContentLoaded', function () {
+  const slider = document.querySelector('.slider-custom');
+  const slides = document.querySelectorAll('.slider__slide');
+  const totalSlides = slides.length;
+
+  if (!slider || totalSlides <= 1) return;
+
+  let currentIndex = 0; // Inicializar el índice de la diapositiva
+  const speed = {{ section.settings.change_slides_speed | times: 1000 }};
+  let intervalId;
+
+  function updateSliderPosition() {
+    slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+  }
+
+  function startSlider() {
+    intervalId = setInterval(() => {
+      currentIndex = (currentIndex + 1) % totalSlides;
+      updateSliderPosition();
+    }, speed);
+  }
+
+  function stopSlider() {
+    clearInterval(intervalId);
+  }
+
+  // Lógica para rotación automática
+  if ({{ section.settings.auto_rotate | default: true }}) {
+    startSlider();
+
+    slider.addEventListener('mouseenter', stopSlider);
+    slider.addEventListener('mouseleave', startSlider);
+  }
+
+  // Lógica de los botones de navegación
+  const prevButton = document.querySelector('.slider-prev');
+  const nextButton = document.querySelector('.slider-next');
+
+  if (prevButton && nextButton) {
+    prevButton.addEventListener('click', () => {
+      currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+      updateSliderPosition();
+    });
+
+    nextButton.addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % totalSlides;
+      updateSliderPosition();
+    });
+  }
+});
+
+    </script>
+
+    {%- if request.design_mode -%}
+      <script src="{{ 'theme-editor.js' | asset_url }}" defer="defer"></script>
+      <style>
+        /* theme editor power preview fix */
+        .announcement-bar-slider .slider__slide[aria-hidden='true'] {
+          visibility: hidden;
+        }
+      </style>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Announcement custom",
+  "max_blocks": 12,
+  "class": "announcement-bar-section",
+  "settings": [
+    {
+  "type": "color",
+  "id": "background_color",
+  "label": "Color de fondo",
+  "default": "#ffffff"
+},
+{
+  "type": "text",
+  "id": "height",
+  "label": "Altura de la sección (ej: 50px, 4rem, auto)",
+  "default": "auto"
+},
+    {
+  "type": "color",
+  "id": "text_color",
+  "label": "Color del texto",
+  "default": "#000000"
+},
+{
+  "type": "text",
+  "id": "font_size",
+  "label": "Tamaño de fuente (ej: 16px, 1.2rem)",
+  "default": "18px"
+},
+
+
+   {
+  "type": "checkbox",
+  "id": "show_arrows",
+  "label": "Mostrar flechas de navegación",
+  "default": false
+},
+{
+  "type": "select",
+  "id": "arrow_icon",
+  "label": "Icono de flechas",
+  "options": [
+
+    { "value": "icon-arrow", "label": "Flecha clásica" },
+    { "value": "icon-caret", "label": "Caret" }
+  ],
+  "default": "icon-arrow"
+},
+
+
+    {
+      "type": "range",
+      "id": "change_slides_speed",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "label": "t:sections.announcement-bar.settings.change_slides_speed.label",
+      "default": 5
+    },
+    {
+  "type": "text",
+  "id": "border_radius",
+  "label": "Border Radius de Botones(ej: 16px)",
+  "default": "18px"
+},
+  ],
+  "blocks": [
+    {
+      "type": "announcement",
+      "name": "t:sections.announcement-bar.blocks.announcement.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "default": "Welcome to our store",
+          "label": "t:sections.announcement-bar.blocks.announcement.settings.text.label"
+        },
+        {
+    "type": "url",
+    "id": "link",
+    "label": "Enlace"
+  },
+        {
+  "type": "text",
+  "id": "button_text",
+  "label": "Texto del botón",
+  "default": "Ver más"
+},
+         {
+  "type": "color",
+  "id": "button_text_color",
+  "label": "Color del texto del boton",
+  "default": "#000000"
+},
+                 {
+  "type": "color",
+  "id": "button_background_color",
+  "label": "Color del fondo del boton",
+  "default": "#000000"
+},
+{
+  "type": "text",
+  "id": "button_font_size",
+  "label": "Tamaño de fuente del boton (ej: 16px, 1.2rem)",
+  "default": "18px"
+},
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.announcement-bar.presets.name",
+      "blocks": [
+        {
+          "type": "announcement"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
