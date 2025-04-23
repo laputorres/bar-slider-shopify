@@ -2,6 +2,7 @@
   .utility-bar{
     display: flex;
     align-items: center;
+    padding:10px 0;
   }
     .announcement-bar-slider-custom {
       width: 100%;
@@ -77,7 +78,7 @@
               </p>
               {% if block.settings.button_text != blank and block.settings.link != blank %}
                 <form action="{{ block.settings.link }}" method="get" style="margin: 0;">
-                  <button type="submit" class="btn" style="border:none; cursor:ponter; padding:10px; border-radius: {{ section.settings.border_radius }}; font-size: {{ block.settings.button_font_size }}; background: {{ block.settings.button_background_color }}; color:{{ block.settings.button_text_color }}">
+                  <button type="submit" class="btn" style="border:none; cursor:ponter; padding:{{ section.settings.padding_buttons }}; border-radius: {{ section.settings.border_radius }}; font-size: {{ block.settings.button_font_size }}; background: {{ block.settings.button_background_color }}; color:{{ block.settings.button_text_color }}">
                     {{ block.settings.button_text }}
                   </button>
                 </form>
@@ -105,7 +106,7 @@
                       <button
                         type="submit"
                         class="btn"
-                        style="border:none; padding:10px; cursor:ponter; border-radius: {{ section.settings.border_radius }}; font-size: {{ block.settings.button_font_size }}; background: {{ block.settings.button_background_color }}; color:{{ block.settings.button_text_color }}"
+                        style="border:none; padding:{{ section.settings.padding_buttons }}; cursor:ponter; border-radius: {{ section.settings.border_radius }}; font-size: {{ block.settings.button_font_size }}; background: {{ block.settings.button_background_color }}; color:{{ block.settings.button_text_color }}"
                       >
                         {{ block.settings.button_text }}
                       </button>
@@ -252,6 +253,12 @@
   "id": "border_radius",
   "label": "Border Radius de Botones(ej: 16px)",
   "default": "18px"
+},
+    {
+  "type": "text",
+  "id": "padding_buttons",
+  "label": "Padding para botones (ej: 16px)",
+  "default": "5px"
 },
   ],
   "blocks": [
